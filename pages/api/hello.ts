@@ -8,6 +8,13 @@ type Data = {
 export default function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
+ 
 ) {
+ const {query:{id}, method}=req
+
+
+console.log(method)
+
+
   res.status(200).json({ name: 'John Doe' })
 }
