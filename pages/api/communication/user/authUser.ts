@@ -15,7 +15,7 @@ export default async function  handelAuthUser(
     if(!email||!password){
         res.send("Please Enter username/password")
     }else{
-        await User.findOne({email}).then((result)=>{
+        await User.findOne({email}).then((result:object)=>{
 
             if(result){
                 res.send(result)

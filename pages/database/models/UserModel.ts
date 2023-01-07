@@ -1,9 +1,8 @@
-import mongoose from "mongoose";
+const mongoose = require("mongoose")
 const bcrypt = require("bcryptjs");
 
-
-
-const UserModelSchema = new mongoose.Schema(
+let UserModelSchema = new mongoose.Schema(
+  
   {
     name: { type: "String", required: true },
     email: { type: "String", unique: true, required: true },
@@ -19,27 +18,34 @@ const UserModelSchema = new mongoose.Schema(
       required: true,
       default: false,
     },
+  
+
   },
-  { timestaps: true }
+  {
+    timestamps:true
+  }
+
+
 );
 
 UserModelSchema.methods.matchPassword = async function (enteredPassword:string) {
   return await bcrypt.compare(enteredPassword, this.password);
 };
 
-UserModelSchema.pre("save", async function (next) {
+UserModelSchema.pre("save", async function (next:any) {
+  // @ts-ignore next line 
   if (!this.isModified) {
     next();
   }
 
   const salt = await bcrypt.genSalt(10);
+   // @ts-ignore next line 
   this.password = await bcrypt.hash(this.password, salt);
 }
 )
 
 
 mongoose.models={}
-
 
 
  let User= mongoose.model("Users", UserModelSchema);

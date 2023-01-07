@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import { AiOutlineInfoCircle } from "react-icons/ai";
 import { CiPaperplane } from "react-icons/ci";
@@ -5,12 +7,41 @@ import { HiOutlineVideoCamera } from "react-icons/hi";
 import { ImAttachment } from "react-icons/im";
 import "../styles/globals.css";
 import LeftSideBar from "./components/LeftSideBar";
+import { userID } from "../utils";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  let [users, setUser] = useState<any[]>();
+  let [selectedUser, setSelectedUser] = useState<string | undefined>();
+  let hanedlSendMsg = () => {
+    console.log(userID);
+  };
+
+  let getAllUsers = async () => {
+    await axios
+      .get("http://localhost:3000/api/communication/user/user")
+      .then((result) => {
+        setUser(result.data);
+      });
+  };
+
+  let handelNewChat = () => {
+    axios.post("http://localhost:3000/api/communication/chat/accessChat", {});
+
+    console.log(selectedUser);
+  };
+
+  useEffect(() => {
+    getAllUsers();
+  }, []);
+
+  console.log(selectedUser);
+
   return (
     <html>
       <head />
@@ -42,7 +73,7 @@ export default function RootLayout({
 
             <div className="flex flex-col gap-[15px] px-[20px] py-[20px] h-[85%] overflow-y-scroll   ">
               {/* msg2 */}
-              <div className="flex gap-[10px]  ">
+              <div className="flex gap-[10px]">
                 <Image
                   width="100"
                   height="100"
@@ -86,7 +117,10 @@ export default function RootLayout({
                 />
               </div>
 
-              <button className="hover:bg-[#FAFAFA] duration-300 cursor-pointer rounded-full p-2">
+              <button
+                onClick={() => hanedlSendMsg()}
+                className="hover:bg-[#FAFAFA] duration-300 cursor-pointer rounded-full p-2"
+              >
                 <CiPaperplane className="text-[30px]" />
               </button>
             </div>

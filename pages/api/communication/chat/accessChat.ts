@@ -1,18 +1,27 @@
 import { NextApiRequest,NextApiResponse } from "next";
+import main from "../../../database/connection";
+import Chat from "../../../database/models/ChatModel"
 
 
 export default async function handelAccessChat(
     req:NextApiRequest,
     res:NextApiResponse
 ){
-    const {_id}=req.body;
 
-if(!_id){
-    res.send("User ID is Empty")
+    main().catch((err)=>{ console.log(err)})
+
+switch(req.method){
+    case "GET" :console.log("get")
+    break
+    case "POST":console.log("post")
 }
 
-    res.send(_id)
 
+res.send(req.method)
 
+let create=new Chat(req.body)
+create.save().then((result:object)=>{
+    res.send(result)
+})
 
 }

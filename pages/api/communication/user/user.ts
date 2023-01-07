@@ -18,7 +18,7 @@ export default function handelUser (
       } 
 
       let getUser=async()=>{
-         await User.find({}).then((result)=>{res.send(result)})
+         await User.find({}).then((result:any)=>{res.send(result)})
       }
 
 

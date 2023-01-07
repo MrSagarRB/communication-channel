@@ -7,7 +7,6 @@ import { RiCheckDoubleLine } from "react-icons/ri";
 import { UserProps } from "../../typeing";
 
 const UserContainer = (props: UserProps) => {
-  console.log(props);
   return (
     <div
       className={`px-[20px] ${
