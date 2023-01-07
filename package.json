@@ -8,6 +8,7 @@
   "dependencies": {
     "@heroicons/react": "^2.0.13",
     "axios": "^1.2.2",
+    "bcryptjs": "^2.4.3",
     "mongoose": "^6.8.2",
     "next": "latest",
     "react": "18.2.0",

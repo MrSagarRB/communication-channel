@@ -8,5 +8,8 @@ const UsersSchema = new mongoose.Schema({
 
 });
 
-const Users =mongoose.model("Users") || mongoose.model("Users", UsersSchema);
-module.exports = Users;
+const Users = mongoose.model("Users", UsersSchema);
+
+// console.log(Users)ffrfrfr
+// module.exports = Users;
+export default Users

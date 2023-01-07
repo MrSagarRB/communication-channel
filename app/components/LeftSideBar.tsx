@@ -136,18 +136,9 @@ interface UserThumbnailProps {
 }
 
 const LeftSideBar = () => {
-  let [activeChat, setActiveChat] = useState<number>();
+  let [activeChat, setActiveChat] = useState<number>(0);
 
-  let origin = window.location.origin;
-  let getUsers = async () => {
-    let users = await axios.get(`${origin}/api/users/1008`);
-    console.log(users.data);
-    // console.log(origin);
-  };
-
-  useEffect(() => {
-    getUsers();
-  }, []);
+  useEffect(() => {}, []);
 
   return (
     <div className="h-full ">
@@ -169,7 +160,7 @@ const LeftSideBar = () => {
         {userData.map((item, ind) => {
           return (
             <div onClick={() => setActiveChat(ind)} key={ind}>
-              <UserContainer props={item} id={ind} activeChat={activeChat} />
+              <UserContainer chatData={item} id={ind} activeChat={activeChat} />
             </div>
           );
         })}
