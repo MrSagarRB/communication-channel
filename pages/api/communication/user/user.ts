@@ -10,11 +10,10 @@ export default function handelUser (
     main().catch((err)=>{ console.log(err)})
 
     let createUser = () =>{
-        
-       
         const create=new User(req.body)
-        create.save()
-        res.send("POST")
+        create.save((result)=>{
+          res.send(result)
+        })
       } 
 
       let getUser=async()=>{

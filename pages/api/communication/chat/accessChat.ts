@@ -10,18 +10,35 @@ export default async function handelAccessChat(
 
     main().catch((err)=>{ console.log(err)})
 
-switch(req.method){
-    case "GET" :console.log("get")
-    break
-    case "POST":console.log("post")
+
+   let createChat = () =>{
+    let create=new Chat(req.body)
+    create.save().then((result:object)=>{
+        res.send(result)
+    })
+}
+
+let geChats=async()=>{
+  await Chat.find({}).then((result)=>{
+        res.send(result)
+    })
 }
 
 
-res.send(req.method)
 
-let create=new Chat(req.body)
-create.save().then((result:object)=>{
-    res.send(result)
-})
+switch(req.method){
+    case "GET" :geChats()
+    break
+    case "POST":createChat()
+    break
+}
+
+
+
+
+
+
+
+
 
 }

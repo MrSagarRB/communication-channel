@@ -135,10 +135,24 @@ interface UserThumbnailProps {
   ind: string;
 }
 
-const LeftSideBar = () => {
+const LeftSideBar = (props: [any]) => {
   let [activeChat, setActiveChat] = useState<number>(0);
+  let [users, setUser] = useState<any[]>();
+  let [selectedUser, setSelectedUser] = useState<string | undefined>();
 
-  useEffect(() => {}, []);
+  let getAllUsers = async () => {
+    await axios
+      .get("http://localhost:3000/api/communication/user/user")
+      .then((result) => {
+        setUser(result?.data);
+      });
+  };
+
+  useEffect(() => {
+    getAllUsers();
+  }, []);
+
+  console.log(selectedUser);
 
   return (
     <div className="h-full ">
@@ -157,7 +171,12 @@ const LeftSideBar = () => {
         </p>
       </div>
       <div className="h-[80%] overflow-y-scroll scroll-smooth">
-        {userData.map((item, ind) => {
+        <select onChange={(e) => setSelectedUser(e.target.value)}>
+          {users?.map((item) => {
+            return <option value={item._id}>{item.name}</option>;
+          })}
+        </select>
+        {props?.props?.map((item, ind) => {
           return (
             <div onClick={() => setActiveChat(ind)} key={ind}>
               <UserContainer chatData={item} id={ind} activeChat={activeChat} />
