@@ -1,7 +1,9 @@
+import Link from "next/link";
+
 export default function HomePage() {
   return (
     <div>
-      <p className="text-blue-600">Sagar</p>
+      <Link href="/home">login</Link>
     </div>
   );
 }
