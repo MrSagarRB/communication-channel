@@ -11,7 +11,7 @@ export default function handelUser (
 
     let createUser = () =>{
         const create=new User(req.body)
-        create.save((result)=>{
+        create.save((result:any)=>{
           res.send(result)
         })
       } 

@@ -19,7 +19,7 @@ export default async function handelAccessChat(
 }
 
 let geChats=async()=>{
-  await Chat.find({}).then((result)=>{
+  await Chat.find({}).then((result:any)=>{
         res.send(result)
     })
 }
